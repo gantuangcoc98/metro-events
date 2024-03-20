@@ -1,10 +1,11 @@
 import './App.css';
-import ButtonAppBar from './AppBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import Home from './Home';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import ButtonAppBar from './AppBar';
 
 function App() {
+
   return (
     <BrowserRouter>
       <div className="App">
