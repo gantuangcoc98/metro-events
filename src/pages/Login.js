@@ -1,23 +1,26 @@
 import { useState } from 'react';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
+    const navigate = useNavigate();
+
     return (
         <div className="Login">
             <div className='login_wrapper'>
                 <div className='input_container'>
-                    <h1 style={{margin: '0', padding: '0', marginBottom: '10px', cursor: 'default'}}>Login</h1>
+                    <h1 style={{margin: '0', padding: '0'}}>Login</h1>
 
                     <div
                         style={{
                             display: 'flex',
-                            width: '200%',
                             fontSize: 'larger',
                             flexDirection: 'column',
-                            gap: '10px'
+                            gap: '10px',
+                            width: '50%'
                         }}
                     >
                         <label htmlFor='username'
@@ -53,14 +56,20 @@ export default function Login() {
                             />
                         </label>
                         <div style={{display:'flex', justifyContent:'end', alignItems: 'center'}}>
-                            <button className='login_button'>Proceed</button>
+                            <button className='proceed_button'>Proceed</button>
                         </div>
                     </div>
                 </div>
-                <div className='vertical_line' style={{borderLeft: '2px solid black'}}/>
+                <div className='vertical_line' style={{borderLeft: '2px solid #283618'}}/>
                 <div className='input_container'>
-                    <h1 style={{margin: '0', padding: '0'}}>No account yet?</h1>
-                    <p>Register here</p>
+                    <h1 style={{margin: '0', padding: '0'}}>NO ACCOUNT YET?</h1>
+                    <h3 style={{
+                            margin: '0', padding: '0', fontWeight: 'normal', cursor: 'pointer'
+                        }} 
+                        onClick={()=>{navigate('/register')}}
+                    >
+                        Register here
+                    </h3>
                 </div>
             </div>    
         </div>

@@ -7,3 +7,6 @@ BC6C25
 
 Url:
 https://coolors.co/palette/606c38-283618-fefae0-dda15e-bc6c25
+
+Website Guide Template:
+https://www.wix.com/website-template/view/html/3371?originUrl=https%3A%2F%2Fwww.wix.com%2Fwebsite%2Ftemplates%2Fhtml%2Fevents&tpClick=view_button&esi=61cc6fcb-6208-4474-a7b3-bc3cd109b0a8

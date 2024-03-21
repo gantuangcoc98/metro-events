@@ -3,20 +3,17 @@
   flex-direction: column;
 }
 
-.button_theme {
-  border: 1px solid black;
-  background-color: transparent;
-  padding: 9px 30px;
-  font-size: 20px;
+.division {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
-.button_theme:hover {
-  cursor: pointer;
-  color: white;
-  background-color: #DDA15E;
-  border: 1px solid #DDA15E;
-}
-
+/* AppBar CSS */
 .app_bar {
   display: flex;
   align-items: center;
@@ -25,9 +22,60 @@
   background-color: #FEFAE0;
 }
 
+.notification_icon {
+  font-size: 23px;
+  margin-right: 10px;
+  color: #283618;
+}
+
+.notification_icon:hover {
+  cursor: pointer;
+  color: #DDA15E;
+}
+
+.login_button {
+  color: #283618;
+  border-style: none;
+  font-size: 20px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.login_button:hover {
+  cursor: pointer;
+  color: #DDA15E;
+}
+
+.register_button {
+  color: #283618;
+  border: 1px solid black;
+  background-color: transparent;
+  padding: 9px 12px;
+  font-size: 20px;
+}
+
+.register_button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #283618;
+  border: 1px solid #283618;
+}
+
+.icon_button {
+  padding: 15px;
+  color: #283618;
+}
+
+.icon_button:hover {
+  cursor: pointer;
+  color: #DDA15E;
+}
+
+/* SideBar CSS */
 .sidebar {
   display: none;
-  background-color: #DDA15E;
+  background-color: #283618;
   width: 250px;
   height: 100%;
   position: fixed;
@@ -45,6 +93,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  color: whitesmoke;
 }
 
 .sidebar_text {
@@ -61,28 +110,19 @@
 }
 
 .sidebar_text:hover {
-  background-color: #D58D3A;
+  background-color: #374A21;
   cursor: pointer;
   color: whitesmoke;
-}
-
-.icon_button {
-  padding: 15px;
-}
-
-.icon_button:hover {
-  cursor: pointer;
-  color: #DDA15E;
 }
 
 .close_nav_bar {
   font-size: 25px;
   margin: 15px 15px 10px;
-  color: black;
+  color: whitesmoke;
 }
 
 .close_nav_bar:hover {
-  color: whitesmoke;
+  color: #47602B;
   cursor: pointer;
 }
 
@@ -96,11 +136,9 @@
 
 .login_wrapper {
   display: flex;
-  justify-content: space-evenly;
   height: inherit;
-  margin: 10px;
-  border: 2px solid black;
   background-color: #dda15e;
+  width: 100%;
 }
 
 .input_container {
@@ -108,7 +146,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 100%;
+  gap: 10px;
+  width: 50%;
 }
 
 .input_style {
@@ -129,7 +169,7 @@
   background-color: #D58D3A;
 }
 
-.login_button {
+.proceed_button {
   margin-top: 10px;
   background-color: transparent;
   border: 1px solid black;
@@ -137,8 +177,130 @@
   font-size: 16px;
 }
 
-.login_button:hover {
+.proceed_button:hover {
   background-color: #D58D3A;
   border: 2px solid black;
   cursor: pointer;
+}
+
+/* Home CSS */
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.browse_button {
+  border: 1px solid #283618;
+  background-color: transparent;
+  padding: 9px 23px;
+  font-size: 20px;
+  color: #283618;
+}
+
+.browse_button:hover {
+  cursor: pointer;
+  background-color: #D58D3A;
+}
+
+.search_bar {
+  display: flex;
+  height: fit-content;
+  border: 1px solid whitesmoke;
+  align-items: center;
+}
+
+.search_bar input {
+  font-size: 20px;
+  color: whitesmoke;
+  padding-left: 9px;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  width: 350px;
+}
+
+.search_bar input:focus {
+  border-style: none;
+  outline: none;
+}
+
+.search_bar:hover {
+  background-color: #374A21;
+}
+
+.search_bar::placeholder {
+  color: whitesmoke;
+  opacity: 0.2;
+}
+
+.search_icon {
+  padding: 9px;
+  font-size: 23px;
+}
+
+.search_icon:hover {
+  cursor: pointer;
+  background-color: #47602B;
+}
+
+/* Register CSS */
+.Register {
+  background-color: #283618;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.register_input {
+  padding: 50px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: start;
+  width: 50%;
+}
+
+.register_input label {
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+}
+
+.register_input input {
+  background-color: transparent;
+  width: 95%;
+  padding: 9px;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  font-size: 16px;
+}
+
+.register_input input::placeholder {
+  color: whitesmoke;
+  opacity: 0.2;
+}
+
+.register_input input:focus {
+  border: 2px solid whitesmoke;
+  outline: none;
+}
+
+.register_input input:hover {
+  background-color: #374A21;
+}
+
+.register_input button {
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+}
+
+.register_input button:hover {
+  border: 2px solid whitesmoke;
+  background-color: #47602B;
 }
