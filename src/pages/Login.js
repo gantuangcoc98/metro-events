@@ -9,27 +9,14 @@ export default function Login() {
     const navigate = useNavigate();
 
     return (
-        <div className="Login">
-            <div className='login_wrapper'>
+        <div className="flex flex-col bg-transparent h-[100vh]">
+            <div className='flex h-full bg-light-brown w-full'>
                 <div className='input_container'>
-                    <h1 style={{margin: '0', padding: '0'}}>Login</h1>
+                    <h1 className='text-[30px] font-bold'>Login</h1>
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            fontSize: 'larger',
-                            flexDirection: 'column',
-                            gap: '10px',
-                            width: '50%'
-                        }}
-                    >
-                        <label htmlFor='username'
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '10px',
-                            }}
-                        >
+                    <div className='flex text-lg flex-col w-[50%]'>
+                        <label className='flex flex-col mb-[10px]'
+                            htmlFor='username'>
                             Username:
                             <input
                                 id='username'
@@ -39,14 +26,8 @@ export default function Login() {
                                 className='input_style'
                             />
                         </label>
-                        <label htmlFor='password'
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '10px'
-                            }}
-                        >
-                            Password:
+                        <label className='flex flex-col mb-[10px]'
+                            htmlFor='password'>Password:
                             <input
                                 id='password'
                                 type='password'
@@ -55,19 +36,21 @@ export default function Login() {
                                 className='input_style'
                             />
                         </label>
-                        <div style={{display:'flex', justifyContent:'end', alignItems: 'center'}}>
-                            <button className='proceed_button'>Proceed</button>
+                        <div className='flex justify-end items-center'>
+                            <button className='mt-[10px] bg-transparent border border-black px-[30px] py-[9px] text-[20px] hover:bg-lighter-brown hover:border-2
+                                hover:border-black hover:cursor-pointer'>
+                                Proceed
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div className='vertical_line' style={{borderLeft: '2px solid #283618'}}/>
+
+                <div style={{borderLeft: '2px solid #283618'}}/>
+                
                 <div className='input_container'>
-                    <h1 style={{margin: '0', padding: '0'}}>NO ACCOUNT YET?</h1>
-                    <h3 style={{
-                            margin: '0', padding: '0', fontWeight: 'normal', cursor: 'pointer'
-                        }} 
-                        onClick={()=>{navigate('/register')}}
-                    >
+                    <h1 className='text-[30px] font-bold'>NO ACCOUNT YET?</h1>
+                    <h3 className='text-[20px] hover:cursor-pointer'
+                        onClick={()=>{navigate('/register')}}>
                         Register here
                     </h3>
                 </div>

@@ -10,7 +10,7 @@ const SearchBar = () => {
     }
 
     return (
-        <div className='search_bar'>
+        <div className='flex h-fit border border-white items-center hover:bg-light-green'>
             <input
             type="text"
             placeholder="Birthday event, basketball game, etc."
@@ -18,9 +18,12 @@ const SearchBar = () => {
             onChange={(e) => {
                 setSearchValue(e.target.value);
             }}
+            className='search_bar_input'
             />
-
-            <CiIcons.CiSearch className='search_icon' onClick={()=>{handleOnClick()}}/>
+            
+            <CiIcons.CiSearch className='search_icon'
+                onClick={()=>{handleOnClick()}}
+            />
         </div>
     );
 };

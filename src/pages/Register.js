@@ -14,29 +14,20 @@ const Register = () => {
     }
 
     return (
-        <div className='Register'>
+        <div className='flex h-fit bg-dark-green w-full justify-evenly'>
             <div className='division'>
-                <h1 style={{margin: '0', padding: '0', color: 'whitesmoke'}}>JOIN THE COMMUNITY</h1>
-                <h3 style={{
-                        margin: '0', padding: '0', fontWeight: 'normal', color: 'whitesmoke'
-                    }}
-                >
+                <h1 className='text-[30px] font-bold text-white'>JOIN THE COMMUNITY</h1>
+                <h3 className='text-[20px] text-white font-light'>
                     Seek, engage, and discover events!
                 </h3>
             </div>
 
             <div className='division' style={{borderLeft: '1px solid whitesmoke'}}>
                 <div className='register_input'>
-                    <h2 style={{
-                            margin: '0', padding: '0',
-                            width: '100%',
-                            textAlign: 'start',
-                            color: 'whitesmoke',
-                        }}
-                    >
+                    <h2 className='m-0 p-0 w-full text-start text-white text-[30px]'>
                         Get in touch!
                     </h2>
-                    <hr style={{width: '100%'}}/>
+                    <hr className='w-[80%]'/>
 
                     <label htmlFor='firstName'>
                         First Name
@@ -99,8 +90,11 @@ const Register = () => {
                         />
                     </label>
                     
-                    <div style={{display: 'flex', width: '100%', justifyContent: 'end'}}>
-                        <button className='proceed_button' onClick={()=>{handleOnClick()}}>Proceed</button>
+                    <div className='flex w-full justify-end'>
+                        <button className='text-[16px] px-[23px] py-[9px] hover:cursor-pointer hover:bg-light-green
+                        text-white border border-white'>
+                            Proceed
+                        </button>
                     </div>
                 </div>
             </div>
