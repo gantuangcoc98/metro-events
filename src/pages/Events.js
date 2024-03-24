@@ -7,7 +7,7 @@ const Events = () => {
     }
 
     return (
-        <div className="flex h-screen overflow-x-scroll">
+        <div className="flex h-screen overflow-x-scroll bg-dark-green scrollbar-hide">
             <div className='flex w-[250px] items-center justify-center bg-dark-green'>
                 <h1 className='rotate-[-90deg] text-[100px] font-bold text-white'>
                     EVENTS

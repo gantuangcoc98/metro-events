@@ -22,7 +22,7 @@
 
 .notification_icon {
   font-size: 23px;
-  margin-right: 10px;
+  margin-right: 50px;
   color: #283618;
 }
 
@@ -165,6 +165,8 @@
   gap: 20px;
   align-items: start;
   width: 50%;
+  height: 100vh;
+  justify-content: center;
 }
 
 .register_input label {

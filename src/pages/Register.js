@@ -4,7 +4,6 @@ import '../App.css';
 const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -47,16 +46,6 @@ const Register = () => {
                             value={lastName}
                             onChange={(e)=>{setLastName(e.target.value)}}
                             placeholder='Doe'
-                        />
-                    </label>
-                    <label htmlFor='email'>
-                        Email Address
-                        <input
-                            id='email'
-                            type='text'
-                            value={email}
-                            onChange={(e)=>{setEmail(e.target.value)}}
-                            placeholder='example@email.com'
                         />
                     </label>
                     <label htmlFor='username'>
