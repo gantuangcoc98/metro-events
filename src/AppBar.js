@@ -51,11 +51,13 @@ function ButtonAppBar() {
           </h3>
         </div>
 
-        <div className="grid items-center justify-end w-[25%] grid-cols-3">
+        <div className="flex items-center justify-end w-[25%]">
           <span className="flex justify-end w-full"><RiIcons.RiNotification3Line className="notification_icon" onClick={()=>{handleOnClick('Notification')}}/></span>
-          <button className="flex justify-end border-none text-dark-green text-[20px] bg-transparent pr-[20px] m-0 hover:cursor-pointer hover:text-light-brown" onClick={()=>{handleOnClick('Login')}}>
+          
+          <button className="flex justify-end border-none text-dark-green text-[20px] bg-transparent mr-[20px] hover:cursor-pointer hover:text-light-brown" onClick={()=>{handleOnClick('Login')}}>
             Login
           </button>
+          
           <button className="text-dark-green border border-black bg-transparent px-[12px] py-[9px] text-[20px] hover:bg-dark-green hover:text-white hover:border hover:border-dark-green" 
             onClick={()=>{handleOnClick('Register')}}
           >Register</button>
