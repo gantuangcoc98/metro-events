@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import SearchBar from '../custom_components/SearchBar';
+import { useEffect } from 'react';
 
 export default function Home() {
 
@@ -10,7 +11,7 @@ export default function Home() {
         switch(event) {
             case "browse":
                 navigate('/events');
-                console.log('Browse all event clicked');
+                console.log('Navigating to events page...');
                 break;
             default:
                 break;

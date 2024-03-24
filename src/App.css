@@ -8,6 +8,11 @@
   width: 100%;
 }
 
+.warning_message {
+  color: rgb(240, 108, 108);
+  font-size: 16px;
+}
+
 /* AppBar CSS */
 .menu_bar {
   color: #283618;
@@ -22,13 +27,25 @@
 
 .notification_icon {
   font-size: 23px;
-  margin-right: 50px;
   color: #283618;
 }
 
 .notification_icon:hover {
   cursor: pointer;
   color: #DDA15E;
+}
+
+.notification {
+  background-color: #FEFAE0;
+  z-index: 1;
+  position: absolute;
+  border: 1px solid rgb(99, 99, 99);
+  height: 350px;
+  width: fit-content;
+  top: 4.9rem;
+  right: 3rem;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 .icon_button {
@@ -43,21 +60,23 @@
 
 /* SideBar CSS */
 .sidebar {
-  display: none;
+  position: fixed;
+  left: -100%;
+  display: flex;
   background-color: #283618;
   width: 250px;
   height: 100%;
-  position: fixed;
   flex-direction: column;
   z-index: 1;
+  transition: 200ms;
 }
 
 .sidebar.active {
-  display: flex;
+  left: 0;
+  transition: 100ms;
 }
 
 .sidebar_items {
-  display: flex;
   flex-direction: inherit;
   gap: 5px;
   list-style: none;
@@ -204,11 +223,61 @@
 }
 
 /* Events CSS */
-.event_item {
+.organizer_section {
+  font-size: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
+  background-color: #F8F3D6;
+}
+
+.request_button {
+  background-color: transparent;
+  border: 1px solid #283618;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 25px;
+  color: #283618;
+}
+
+.request_button:hover {
+  background-color: #283618;
+  color: white;
+}
+
+/* Organize CSS */
+.organize_input {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 500px;
-  align-items: center;
-  border: 1px solid black;
+  height: 100vh;
+  width: 75%;
+  justify-content: center;
+}
+
+.organize_input label {
+  display: inherit;
+  flex-direction: inherit;
+  gap: 5px;
+  font-size: 18px;
+  color: #283618;
+}
+
+.organize_input input {
+  background-color: transparent;
+  border: 1px solid #283618;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.organize_input input:focus {
+  outline: none;
+  border: 2px solid #283618;
+  background-color: #D58D3A;
+}
+
+.organize_input input:hover {
+  background-color: #D58D3A;
 }

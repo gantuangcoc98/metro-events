@@ -3,10 +3,25 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [credentialFlag, setCredentialFlag] = useState(false);
 
     const navigate = useNavigate();
+
+    const loginAccount = () => {
+        const accounts = JSON.parse(window.localStorage.getItem('accounts')) || [];
+
+        const user = accounts.find(account => account.username === username);
+        if (user && user.password === password) {
+            window.localStorage.setItem('LOGGED_USER', JSON.stringify(user.userId));
+            navigate('/');
+            window.location.reload();
+            console.log('Logging in as ' + user.username + '...');
+        } else {
+            setCredentialFlag(true);
+        }
+    }
 
     return (
         <div className="flex flex-col bg-transparent h-[100vh]">
@@ -23,6 +38,9 @@ export default function Login() {
                                 type='text'
                                 value={username}
                                 onChange={(e)=>{setUsername(e.target.value)}}
+                                onFocus={() => {
+                                    setCredentialFlag(false);
+                                }}
                                 className='input_style'
                             />
                         </label>
@@ -33,12 +51,19 @@ export default function Login() {
                                 type='password'
                                 value={password}
                                 onChange={(e)=>{setPassword(e.target.value)}}
+                                onFocus={() => {
+                                    setCredentialFlag(false);
+                                }}
                                 className='input_style'
                             />
                         </label>
+
+                        {credentialFlag && <h6 className='warning_message'>Invalid username or password.</h6>}
+
                         <div className='flex justify-end items-center'>
                             <button className='mt-[10px] bg-transparent border border-black px-[30px] py-[9px] text-[20px] hover:bg-lighter-brown hover:border-2
-                                hover:border-black hover:cursor-pointer'>
+                                hover:border-black hover:cursor-pointer'
+                                onClick={()=>{loginAccount()}}>
                                 Proceed
                             </button>
                         </div>
