@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import ButtonAppBar from './AppBar';
 import Register from './pages/Register';
+import Events from './pages/Events';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/Events' element={<Events/>}/>
         </Routes>
       </div>
     </BrowserRouter>

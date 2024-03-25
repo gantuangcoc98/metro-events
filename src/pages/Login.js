@@ -3,10 +3,22 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
-
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    const handleOnClick = () => {
+        const storedUsername = localStorage.getItem('loginUsername');
+        const storedPassword = localStorage.getItem('loginPassword');
+        
+        // Simple Authentication ilisan rani nato gar  kung mag database nata gamit springboot
+        if (username === storedUsername && password === storedPassword) {
+            
+            navigate('/events');
+        } else {
+            alert('Invalid username or password');
+        }
+    };
 
     return (
         <div className="Login">
@@ -56,7 +68,7 @@ export default function Login() {
                             />
                         </label>
                         <div style={{display:'flex', justifyContent:'end', alignItems: 'center'}}>
-                            <button className='proceed_button'>Proceed</button>
+                            <button className='proceed_button' onClick={handleOnClick}>Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -73,5 +85,5 @@ export default function Login() {
                 </div>
             </div>    
         </div>
-    )
-};
+    );
+}

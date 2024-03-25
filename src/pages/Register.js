@@ -2,16 +2,26 @@ import { useState } from 'react';
 import '../App.css';
 
 const Register = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [firstName, setFirstName] = useState(localStorage.getItem('firstName') || '');
+    const [lastName, setLastName] = useState(localStorage.getItem('lastName') || '');
+    const [email, setEmail] = useState(localStorage.getItem('email') || '');
+    const [username, setUsername] = useState(localStorage.getItem('username') || '');
+    const [password, setPassword] = useState(localStorage.getItem('password') || '');
+    const [confirmPassword, setConfirmPassword] = useState(localStorage.getItem('confirmPassword') || '');
 
     const handleOnClick = () => {
-        console.log('Confirming registration...');
+        // console.log('Confirming registration...');
+        // Save data to local storage
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('lastName', lastName);
+        localStorage.setItem('email', email);
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        localStorage.setItem('confirmPassword', confirmPassword);
     }
+    // const handleOnClick = () => {
+    //     console.log('Confirming registration...');
+    // }
 
     return (
         <div className='Register'>
