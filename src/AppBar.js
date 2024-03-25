@@ -103,11 +103,6 @@ function ButtonAppBar() {
                 <RiIcons.RiNotification3Line className='notification_icon' onClick={()=>{handleOnClick('Notification')}}/>}
             </div>
           }
-
-          <button className="flex justify-end border-none text-dark-green text-[20px] bg-transparent mr-[20px] hover:cursor-pointer hover:text-light-brown" 
-              onClick={()=>{clearStorage()}}>
-              Clear
-          </button>
           
           {notification && <Notification />}
 
