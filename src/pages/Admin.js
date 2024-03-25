@@ -1,14 +1,37 @@
 import { useEffect, useState } from "react"
-import { approveRequest, denyRequest } from "../custom_components/Functions";
+import { approveRequest, denyRequest, retrieveAccount } from "../custom_components/Functions";
+import { useNavigate } from "react-router-dom";
 
 export const Admin = () => {
     const [requests, setRequests] = useState([]);
-    
+    const [loginStatus, setLoginStatus] = useState(false);
+    const [loggedAdmin, setLoggedAdmin] = useState({});
+
+    const navigate = useNavigate();
+
     useEffect(
         () => {
-            const _requests = JSON.parse(window.localStorage.getItem('organizer_requests')) || [];
-            setRequests(_requests);
-        }, []
+            const LOGGED_USER = JSON.parse(window.localStorage.getItem('LOGGED_USER'));
+
+            if (LOGGED_USER !== null) {
+                const account = retrieveAccount(LOGGED_USER);
+
+                if (account.userType === 2) {
+                    setLoggedAdmin(account);
+                    setLoginStatus(true);
+    
+                    const _requests = JSON.parse(window.localStorage.getItem('organizer_requests')) || [];
+                    setRequests(_requests);
+
+                } else {
+                    navigate('/');
+                    console.log('Navigating to home page...');
+                }
+            } else {
+                navigate('/login');
+                console.log('Navigating to login page...');
+            }
+        }, [loginStatus]
     )
     
     const handleOnClick = (state, userId) => {
@@ -29,7 +52,7 @@ export const Admin = () => {
     return (
         <div className="flex bg-darker-dirty-white h-screen items-center justify-center">
             <div className="flex flex-col h-full w-[90%] mt-[50px] gap-[20px]">
-                <h2 className="text-[30px] ml-[20px]">Manage Requests</h2>
+                <h2 className="text-[30px] ml-[20px]">Manage Organizer Requests</h2>
                 <ul className="flex flex-col border-2 border-black rounded-[12px]">
                     {requests.map(
                         (item, index) => {

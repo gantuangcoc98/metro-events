@@ -62,6 +62,44 @@ const Events = () => {
 
     const requestParticipation = (eventId) => {
         console.log("Requesting to participate event " + eventId + "...");
+
+        const participation_requests = JSON.parse(window.localStorage.getItem('participation_requests')) || [];
+        
+        const request = {
+            requestId: participation_requests.length,
+            eventId: eventId,
+            userId: loggedUser.userId,
+        }
+
+        participation_requests.push(request);
+        window.localStorage.setItem('participation_requests', JSON.stringify(participation_requests));
+        window.location.reload();
+    }
+
+    const checkEventRequest = (eventId) => {
+        const participation_requests = JSON.parse(window.localStorage.getItem('participation_requests')) || null;
+
+        if (participation_requests !== null && loginStatus) {
+            const userFound = participation_requests.find(request => request.userId === loggedUser.userId && request.eventId === eventId);
+            if (userFound) return true;
+        }
+
+        return false;
+    }
+
+    const eventOwner = (eventId) => {
+        const events = JSON.parse(window.localStorage.getItem('events')) || null;
+
+        if (events !== null && loginStatus) {
+            const userFound = events.find(event => event.eventId === eventId && event.userId === loggedUser.userId);
+            if (userFound) return true;
+        }
+
+        return false;
+    }
+
+    const editEvent = (eventId) => {
+        console.log('Editing event: ' + eventId + '...');
     }
 
     return (
@@ -104,10 +142,26 @@ const Events = () => {
                                         {item.description}
 
                                         <span className='flex w-full h-fit justify-end'>
-                                            <button className='text-[20px]'
-                                                onClick={()=>{requestParticipation(item.eventId)}}>
-                                                Participate
-                                            </button>
+                                            {eventOwner(item.eventId) ? 
+                                                <button className='text-[20px]'
+                                                    onClick={()=>editEvent(item.eventId)}>
+                                                    Edit
+                                                </button>
+                                                :
+                                                checkEventRequest(item.eventId) ? 
+                                                    <span className='text-[20px]'>Requested to participate...</span>
+                                                    :
+                                                    <button className='text-[20px]'
+                                                        onClick={()=>{
+                                                            if (loginStatus) {
+                                                                requestParticipation(item.eventId);
+                                                            } else {
+                                                                navigate('/login');
+                                                            }
+                                                            }}>
+                                                        Participate
+                                                    </button>
+                                            }
                                         </span>
                                     </div>
                                     

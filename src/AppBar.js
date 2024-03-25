@@ -55,8 +55,8 @@ function ButtonAppBar() {
         window.localStorage.setItem('LOGGED_USER', JSON.stringify(null));
         setLoggedUser({});
         setLoginStatus(false);
-        navigate('/');
         console.log('Logging out...');
+        window.location.reload();
         break;
       case 'Register':
         navigate('/register');
@@ -136,7 +136,10 @@ function ButtonAppBar() {
             <ul className="sidebar_items">
                 {SidebarData.map((item, index) => {
                     return (
-                        <li key={index} className={item.className} onClick={()=>{ navigate(item.path); showSideBar(); }}>
+                        <li key={index} className={item.className} onClick={()=>{
+                            navigate(item.path); 
+                            showSideBar();
+                          }}>
                         {item.icon}
                         {item.title}
                         </li>

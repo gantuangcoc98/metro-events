@@ -68,6 +68,13 @@ const addEvent = (event, userId) => {
     }
 }
 
+const ownedEvents = (userId) => {
+    const events = JSON.parse(window.localStorage.getItem('events')) || [];
+
+    const _ownedEvents = events.filter(event => event.userId === userId);
+    return _ownedEvents;
+}
+
 export {
-    retrieveAccount, retrieveRequest, approveRequest, denyRequest, addEvent
+    retrieveAccount, retrieveRequest, approveRequest, denyRequest, addEvent, ownedEvents
 }

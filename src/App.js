@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import { Admin } from './pages/Admin';
 import { ClearLocalStorage } from './custom_components/ClearLocalStorage';
 import { Organize } from './pages/Organize';
+import { CreateEvent } from './pages/CreateEvent';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/events' element={<Events />} />
             <Route path='/organize' element={<Organize />} />
+            <Route path='/organize/create' element={<CreateEvent />} />
           </Routes>
         </div>
       </div>
