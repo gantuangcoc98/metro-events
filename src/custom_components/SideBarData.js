@@ -1,7 +1,7 @@
 import * as IoIcons from 'react-icons/io';
 import* as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
-
+import * as LuIcons from "react-icons/lu";
 
 export const SidebarData = [
     {
@@ -9,6 +9,12 @@ export const SidebarData = [
         path: '/',
         className: 'sidebar_text',
         icon: <IoIcons.IoMdHome />,
+    },
+    {
+        title: 'Organize',
+        path: '/organize',
+        className: 'sidebar_text',
+        icon: <LuIcons.LuPenSquare />,
     },
     {
         title: 'Events',

@@ -9,6 +9,8 @@ export default function Login() {
 
     const navigate = useNavigate();
 
+    const [registerUnderline, setRegisterUnderline] = useState('w-[20px]');
+
     const loginAccount = () => {
         const accounts = JSON.parse(window.localStorage.getItem('accounts')) || [];
 
@@ -74,10 +76,13 @@ export default function Login() {
                 
                 <div className='input_container'>
                     <h1 className='text-[30px] font-bold'>NO ACCOUNT YET?</h1>
-                    <h3 className='text-[20px] hover:cursor-pointer'
-                        onClick={()=>{navigate('/register')}}>
-                        Register here
-                    </h3>
+                    <div className='flex flex-col items-center hover:cursor-pointer'
+                        onMouseEnter={() => setRegisterUnderline('w-full duration-100')}
+                        onMouseLeave={() => setRegisterUnderline('w-[20px] duration-500')}
+                        onClick={() => navigate('/register')}>
+                        <h3 className='text-[20px]'>Register here</h3>
+                        <div className={'h-[5px] bg-dark-green rounded-[12px] ' + registerUnderline} />
+                    </div>
                 </div>
             </div>    
         </div>
