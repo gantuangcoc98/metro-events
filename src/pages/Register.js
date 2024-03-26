@@ -31,7 +31,7 @@ const Register = () => {
                 lastname: lastName,
                 username: username,
                 password: password,
-                userType: 0,
+                userType: 0, // Admin = 2, User = 0, Organizer = 1
                 events: [],
                 participates: [],
             }
