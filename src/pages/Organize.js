@@ -63,13 +63,12 @@ export const Organize = () => {
                                 <li key={index} className="flex flex-col pr-[20px] pl-[20px] pt-[10px] pb-[10px] hover:bg-dirty-white hover:rounded-[12px] text-[18px] hover:cursor-pointer"
                                     onClick={()=>handleOnClick('EventToggle', item.eventId)}>
                                     <div className="flex justify-between w-full">
-                                        <div>
+                                        <div className="flex w-[25%] items-center justify-between">
                                             <span>{item.title}</span>
-                                            <span>{item.description}</span>
                                             <span>{item.date}</span>
                                         </div>
 
-                                        <div>
+                                        <div className="flex w-[25%] items-center justify-end">
                                             <button className= "bg-light-brown text-[16px] pt-[5px] pb-[5px] pl-[20px] pr-[20px] hover:bg-lighter-brown"
                                                 onClick={()=>{handleOnClick('Edit', item.eventId)}}>
                                                 Edit
