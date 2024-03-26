@@ -37,7 +37,7 @@ const Register = () => {
             }
             
             const accounts = JSON.parse(window.localStorage.getItem('accounts')) || [];
-            newAccount.userId = accounts.length;
+            newAccount.userId = accounts.length + 1;
 
             const usernameExist = accounts.some(account => account.username === username);
             if (usernameExist) {
@@ -45,14 +45,31 @@ const Register = () => {
                 console.log('Username already exist!');
             } else {
                 accounts.push(newAccount);
+                createNotificationForUser(newAccount.userId);
                 window.localStorage.setItem('accounts', JSON.stringify(accounts));
+
+                console.log('Successfully registered new account!');
                 navigate('/login');
             }
         } else {
             console.log('Password did not match!');
             setPasswordFlag(true);
         }
-        
+    }
+
+    const createNotificationForUser = (userId) => {
+        const notifications = JSON.parse(window.localStorage.getItem('notifications')) || [];
+
+        const userNotif = {
+            notifId: notifications.length + 1,
+            userId: userId,
+            items: [],
+        }
+
+        notifications.push(userNotif);
+        window.localStorage.setItem('notifications', JSON.stringify(notifications));
+
+        console.log('Created new notification data for ', userId + '.');
     }
 
     return (

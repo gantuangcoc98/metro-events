@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
-import { retrieveAccount, retrieveEvent, retrieveRequest, updateEvents } from '../custom_components/Functions';
+import { notifyTo, retrieveAccount, retrieveEvent, retrieveRequest, updateEvents } from '../custom_components/Functions';
 
 const Events = () => {
     const [organizer, setOrganizer] = useState(false);
@@ -37,6 +37,16 @@ const Events = () => {
         const organizer_requests = JSON.parse(window.localStorage.getItem('organizer_requests')) || [];
         organizer_requests.push(loggedUser);
         window.localStorage.setItem('organizer_requests', JSON.stringify(organizer_requests));
+
+        const accounts = JSON.parse(window.localStorage.getItem('accounts'));
+        const adminAccounts = accounts.filter(account => account.userType === 2);
+        if (adminAccounts && Array.isArray(adminAccounts)) {
+            adminAccounts.forEach(account => {
+                notifyTo(account.userId, 'requestOrganizer');
+            })
+        }
+
+        console.log('Requested to be an organizer');
     }
 
     const handleOnClick = (state) => {
@@ -52,7 +62,6 @@ const Events = () => {
                 } else {
                     requestOrganizer();
                     window.location.reload();
-                    console.log('Requested to be an organizer');
                 }
                 break;
             default:
@@ -86,6 +95,7 @@ const Events = () => {
                     accounts[userFound] = loggedUser;
                     window.localStorage.setItem('accounts', JSON.stringify(accounts));
                     updateEvents();
+                    notifyTo(owner.userId, 'requestParticipation', event.eventId)
 
                     console.log('Requested to participate event ', event.title);
                     window.location.reload();
@@ -149,7 +159,7 @@ const Events = () => {
                     </div>
             }
 
-            <div className="flex h-screen overflow-x-scroll bg-dark-green">
+            <div className="flex h-screen overflow-x-auto bg-dark-green events">
                 <div className='flex w-[250px] items-center justify-center bg-dark-green'>
                     <h1 className='rotate-[-90deg] text-[100px] font-bold text-white'>
                         EVENTS

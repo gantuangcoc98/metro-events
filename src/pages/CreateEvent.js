@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { retrieveAccount, addEvent } from '../custom_components/Functions';
+import { retrieveAccount, addEvent, notifyTo } from '../custom_components/Functions';
 import { useNavigate } from "react-router-dom";
 
 export const CreateEvent = () => {
@@ -55,8 +55,17 @@ export const CreateEvent = () => {
             _events.push(event);
             window.localStorage.setItem('events', JSON.stringify(_events));
             addEvent(event, userId);
+            
+            const accounts = JSON.parse(window.localStorage.getItem('accounts'));
+            if (accounts && Array.isArray(accounts)) {
+                accounts.forEach(account => {
+                    notifyTo(account.userId, 'newEvent', event.eventId);
+                })
+            }
+            
         }
         navigate('/events');
+        window.location.reload();
     }
 
     return (

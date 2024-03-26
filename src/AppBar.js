@@ -10,22 +10,31 @@ import './App.css';
 
 function ButtonAppBar() {
   const [sideBar, setSideBar] = useState(false);
-  const [notification, setNotification] = useState(false);
+  const [notificationToggle, setNotificationToggle] = useState(false);
   const [loginStatus, setLoginStatus] = useState(false);
   const [loggedUser, setLoggedUser] = useState({});
+
+  const [notifications, setNotifications] = useState({});
+  const [unreadNotif, setUnreadNotif] = useState(false);
 
   useEffect(
     () => {
       const LOGGED_USER = JSON.parse(window.localStorage.getItem('LOGGED_USER'));
       
       if (LOGGED_USER !== null) {
-        setLoggedUser(retrieveAccount(LOGGED_USER));
+        const account = retrieveAccount(LOGGED_USER);
+        setLoggedUser(account);
         setLoginStatus(true);
+
+        const notifications = JSON.parse(window.localStorage.getItem('notifications'));
+        const userNotif = notifications.find(notif => notif.userId === account.userId);
+        setNotifications(userNotif.items);
+        checkNotif();
       } else {
         setLoggedUser({});
         setLoginStatus(false);
       }
-    }, []
+    }, [loginStatus]
   )
 
   const navigate = useNavigate();
@@ -45,7 +54,10 @@ function ButtonAppBar() {
         console.log('Navigating to admin page...');
         break;
       case 'Notification':
-        setNotification(!notification);
+        setNotificationToggle(!notificationToggle);
+
+        readNotifications();
+        setUnreadNotif(false);
         break;
       case 'Login':
         navigate('/login');
@@ -73,6 +85,36 @@ function ButtonAppBar() {
     window.localStorage.clear();
   }
 
+  const checkNotif = () => {
+    if (notifications && Array.isArray(notifications)) {
+      notifications.forEach(item => {
+        if (item.status === 0) {
+          setUnreadNotif(true);
+          return;
+        }
+      })
+    }
+  }
+
+  const readNotifications = () => {
+    if (notifications && Array.isArray(notifications)) {
+      notifications.forEach(item => {
+        item.status = 1;
+      })
+
+      const notifications_database = JSON.parse(window.localStorage.getItem('notifications'));
+      const userNotifFound = notifications_database.findIndex(notif => notif.userId === loggedUser.userId);
+      if (userNotifFound >= 0) {
+        notifications_database[userNotifFound].items = notifications;
+        window.localStorage.setItem('notifications', JSON.stringify(notifications_database));
+
+        console.log('Read all your notifications.');
+      } else {
+        console.log('User notification data not found.');
+      }
+    }
+  }
+
   return (
     <>
       <div className="flex p-[30px] items-center justify-between bg-dirty-white">
@@ -97,19 +139,20 @@ function ButtonAppBar() {
                   onClick={()=>{handleOnClick('Admin')}}>
                   Admin
                 </button>}
-              {notification ?
-                <RiIcons.RiNotification3Fill className='notification_icon' onClick={()=>{handleOnClick('Notification')}}/>
-                :
-                <RiIcons.RiNotification3Line className='notification_icon' onClick={()=>{handleOnClick('Notification')}}/>}
+              
+              <div className="flex justify-end items-start">
+                {unreadNotif && <span className="absolute border-[5px] border-red-500 w-[1px] h-[1px] rounded-[50%]"/> }
+                {notificationToggle ?
+                  <RiIcons.RiNotification3Fill className='notification_icon' onClick={()=>{handleOnClick('Notification')}}/>
+                  :
+                  <RiIcons.RiNotification3Line className='notification_icon' onClick={()=>{handleOnClick('Notification')}}/>
+                }
+              </div>
+              
             </div>
           }
-          
-          <button className="flex justify-end border-none text-dark-green text-[20px] bg-transparent mr-[20px] hover:cursor-pointer hover:text-light-brown" 
-                onClick={()=>{clearStorage()}}>
-                Clear
-              </button>
 
-          {notification && <Notification />}
+          {notificationToggle && <Notification />}
 
           {!loginStatus &&
             <>
