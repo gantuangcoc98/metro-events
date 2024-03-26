@@ -42,10 +42,9 @@ export const CreateEvent = () => {
             console.log('Organizing an event...');
 
             const _events = events;
-            const eventId = _events.length;
 
             const event = {
-                eventId: eventId,
+                eventId: _events.length + 1,
                 title: title,
                 date: date,
                 description: description,

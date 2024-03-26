@@ -104,6 +104,11 @@ function ButtonAppBar() {
             </div>
           }
           
+          <button className="flex justify-end border-none text-dark-green text-[20px] bg-transparent mr-[20px] hover:cursor-pointer hover:text-light-brown" 
+                onClick={()=>{clearStorage()}}>
+                Clear
+              </button>
+
           {notification && <Notification />}
 
           {!loginStatus &&
@@ -141,7 +146,7 @@ function ButtonAppBar() {
                     )
                 })}
             </ul>
-            
+
             <div className="justify-center mt-[20px] bg-dirty-white h-[2px] w-full" />
 
             <div className="flex m-[10px] pl-[20px] items-center text-[20px] text-white rounded-[12px] pt-[10px] pb-[10px] hover:cursor-pointer hover:bg-light-green"

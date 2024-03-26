@@ -38,11 +38,9 @@ export const Organize = () => {
 
     const handleOnClick = (state, eventId) => {
         switch (state) {
-            case 'Edit':
-                console.log('Editing event...');
-                break;
-            case 'Delete':
-                console.log('Deleting event...');
+            case 'Manage':
+                console.log('Navigating to manage pages...');
+                navigate(`/organize/event/${eventId}`);
                 break;
             case 'EventToggle':
                 console.log('Displaying event ' + eventId + '...');
@@ -70,19 +68,15 @@ export const Organize = () => {
 
                                         <div className="flex w-[25%] items-center justify-end">
                                             <button className= "bg-light-brown text-[16px] pt-[5px] pb-[5px] pl-[20px] pr-[20px] hover:bg-lighter-brown"
-                                                onClick={()=>{handleOnClick('Edit', item.eventId)}}>
-                                                Edit
-                                            </button>
-                                            <button className="bg-lighter-green text-[16px] pt-[5px] pb-[5px] pl-[10px] pr-[10px] hover:bg-dark-green hover:text-white"
-                                                onClick={()=>{handleOnClick('Delete', item.eventId)}}>
-                                                Delete
+                                                onClick={()=>{handleOnClick('Manage', item.eventId)}}>
+                                                Manage
                                             </button>
                                         </div>
                                     </div>
                                     
-                                    <div key={index} className={eventToggle ? 'flex' 
+                                    <div key={index} className={eventToggle ? 'flex mt-[10px]' 
                                             : 'hidden'}>
-                                        <span>{item.description}</span>
+                                        <span className="text-[16px]">{item.description}</span>
                                     </div>
                                 </li>
                             )

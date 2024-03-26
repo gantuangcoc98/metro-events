@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
-import { retrieveAccount, retrieveRequest } from '../custom_components/Functions';
+import { retrieveAccount, retrieveEvent, retrieveRequest, updateEvents } from '../custom_components/Functions';
 
 const Events = () => {
     const [organizer, setOrganizer] = useState(false);
@@ -61,38 +61,60 @@ const Events = () => {
     }
 
     const requestParticipation = (eventId) => {
-        console.log("Requesting to participate event " + eventId + "...");
-
-        const participation_requests = JSON.parse(window.localStorage.getItem('participation_requests')) || [];
-        
+        const event = retrieveEvent(eventId);
         const request = {
-            requestId: participation_requests.length,
+            requestId: event.participants.length + 1,
             eventId: eventId,
             userId: loggedUser.userId,
+            status: 0,
+        }
+        event.participants.push(request);
+
+        loggedUser.participates.push(request);
+
+        const owner = retrieveAccount(event.userId);
+        const eventFound = owner.events.findIndex(_event => _event.eventId === eventId);
+        if (eventFound >= 0) {
+            owner.events[eventFound] = event;
+
+            const accounts = JSON.parse(window.localStorage.getItem('accounts'));
+            if (accounts && Array.isArray(accounts)) {
+                const ownerFound = accounts.findIndex(account => account.userId === owner.userId);
+                const userFound = accounts.findIndex(account => account.userId === loggedUser.userId);
+                if (ownerFound >= 0 && userFound >= 0) {
+                    accounts[ownerFound] = owner;
+                    accounts[userFound] = loggedUser;
+                    window.localStorage.setItem('accounts', JSON.stringify(accounts));
+                    updateEvents();
+
+                    console.log('Requested to participate event ', event.title);
+                    window.location.reload();
+                } else {
+                    console.log('Owner not found. Try reloading the page.');
+                }
+            } else {
+                console.log('Error fetching accounts.');
+            }
+        } else {
+            console.log('Event not found. Try reloading the page.');
         }
 
-        participation_requests.push(request);
-        window.localStorage.setItem('participation_requests', JSON.stringify(participation_requests));
-        window.location.reload();
     }
 
     const checkEventRequest = (eventId) => {
-        const participation_requests = JSON.parse(window.localStorage.getItem('participation_requests')) || null;
+        const event = retrieveEvent(eventId);
+        const participants = event.participants;
 
-        if (participation_requests !== null && loginStatus) {
-            const userFound = participation_requests.find(request => request.userId === loggedUser.userId && request.eventId === eventId);
-            if (userFound) return true;
-        }
+        const userFound = participants.find(user => user.userId === loggedUser.userId);
+        if (userFound) return true;
 
         return false;
     }
 
     const eventOwner = (eventId) => {
-        const events = JSON.parse(window.localStorage.getItem('events')) || null;
-
-        if (events !== null && loginStatus) {
-            const userFound = events.find(event => event.eventId === eventId && event.userId === loggedUser.userId);
-            if (userFound) return true;
+        const event = retrieveEvent(eventId);
+        if (event.userId === loggedUser.userId) {
+            return true;
         }
 
         return false;
@@ -100,6 +122,14 @@ const Events = () => {
 
     const editEvent = (eventId) => {
         console.log('Editing event: ' + eventId + '...');
+
+        navigate(`/organize/event/${eventId}`);
+    }
+
+    const status = (eventId) => {
+        const event = retrieveEvent(eventId);
+        const user = event.participants.find(user => user.userId === loggedUser.userId);
+        return user.status;
     }
 
     return (
@@ -119,7 +149,7 @@ const Events = () => {
                     </div>
             }
 
-            <div className="flex h-screen overflow-x-scroll bg-dark-green scrollbar-hide">
+            <div className="flex h-screen overflow-x-scroll bg-dark-green">
                 <div className='flex w-[250px] items-center justify-center bg-dark-green'>
                     <h1 className='rotate-[-90deg] text-[100px] font-bold text-white'>
                         EVENTS
@@ -142,16 +172,21 @@ const Events = () => {
                                         {item.description}
 
                                         <span className='flex w-full h-fit justify-end'>
-                                            {eventOwner(item.eventId) ? 
-                                                <button className='text-[20px]'
-                                                    onClick={()=>editEvent(item.eventId)}>
-                                                    Edit
-                                                </button>
+                                            {checkEventRequest(item.eventId) ? 
+                                                <>
+                                                    {status(item.eventId) === 0 && <span className='text-[20px]'>Requested to participate...</span>}
+                                                    {status(item.eventId) === 1 && <span className='text-[20px]'>Accepted</span>}
+                                                    {status(item.eventId) === -1 && <span className='text-[20px]'>Denied</span>}
+                                                </>
                                                 :
-                                                checkEventRequest(item.eventId) ? 
-                                                    <span className='text-[20px]'>Requested to participate...</span>
-                                                    :
-                                                    <button className='text-[20px]'
+                                                <>
+                                                    {eventOwner(item.eventId) ?
+                                                        <button className='text-[20px]'
+                                                            onClick={()=>editEvent(item.eventId)}>
+                                                            Edit
+                                                        </button>
+                                                        :
+                                                        <button className='text-[20px]'
                                                         onClick={()=>{
                                                             if (loginStatus) {
                                                                 requestParticipation(item.eventId);
@@ -160,7 +195,9 @@ const Events = () => {
                                                             }
                                                             }}>
                                                         Participate
-                                                    </button>
+                                                        </button>
+                                                    }
+                                                </>
                                             }
                                         </span>
                                     </div>

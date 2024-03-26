@@ -33,6 +33,7 @@ const Register = () => {
                 password: password,
                 userType: 0,
                 events: [],
+                participates: [],
             }
             
             const accounts = JSON.parse(window.localStorage.getItem('accounts')) || [];

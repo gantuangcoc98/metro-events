@@ -75,6 +75,32 @@ const ownedEvents = (userId) => {
     return _ownedEvents;
 }
 
+const retrieveEvent = (eventId) => {
+    const events = JSON.parse(window.localStorage.getItem('events')) || [];
+
+    const eventFound = events.find(event => event.eventId === eventId);
+    if (eventFound) return eventFound;
+
+    return events;
+}
+
+const updateEvents = () => {
+    const newEvents = new Array();
+    const accounts = JSON.parse(window.localStorage.getItem('accounts')) || [];
+
+    if (accounts && Array.isArray(accounts)) {
+        accounts.forEach(account => {
+            if (account.events && Array.isArray(account.events)) {
+                account.events.forEach(event => {
+                    newEvents.push(event);
+                });
+            }
+        });
+    }
+
+    window.localStorage.setItem('events', JSON.stringify(newEvents));
+}
+
 export {
-    retrieveAccount, retrieveRequest, approveRequest, denyRequest, addEvent, ownedEvents
+    retrieveAccount, retrieveRequest, approveRequest, denyRequest, addEvent, ownedEvents, retrieveEvent, updateEvents
 }
