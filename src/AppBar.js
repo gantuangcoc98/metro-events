@@ -19,20 +19,21 @@ function ButtonAppBar() {
 
   useEffect(
     () => {
-      const LOGGED_USER = JSON.parse(window.localStorage.getItem('LOGGED_USER'));
+      const LOGGED_USER = JSON.parse(window.localStorage.getItem('LOGGED_USER')) || null;
       
       if (LOGGED_USER !== null) {
         const account = retrieveAccount(LOGGED_USER);
         setLoggedUser(account);
         setLoginStatus(true);
 
-        const notifications = JSON.parse(window.localStorage.getItem('notifications'));
+        const notifications = JSON.parse(window.localStorage.getItem('notifications')) || [];
         const userNotif = notifications.find(notif => notif.userId === account.userId);
         setNotifications(userNotif.items);
         checkNotif();
       } else {
         setLoggedUser({});
         setLoginStatus(false);
+        window.localStorage.setItem('LOGGED_USER', JSON.stringify(LOGGED_USER));
       }
     }, [loginStatus]
   )
