@@ -152,6 +152,8 @@ function ButtonAppBar() {
               
             </div>
           }
+{/* 
+          <button onClick={()=>clearStorage()}>Clear</button> */}
 
           {notificationToggle && <Notification />}
 
